@@ -7,10 +7,12 @@
 let globalVariable = 3;
 
 function addUp(num) {
-  sum = globalVariable + num;
-  return sum;
+  globalVariable = globalVariable + num;
+  return globalVariable;
 }
 console.log(addUp(4));
+console.log(addUp(4));
+
 
 
 /* STRETCH PROBLEMS, Do not attempt until you have completed all previous tasks for today's project files */
