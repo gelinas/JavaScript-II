@@ -1,6 +1,6 @@
 // Create a higher order function and invoke the callback function to test your work. You have been provided an example of a problem and a solution to see how this works with our items array.  Study both the problem and the solution to figure out the rest of the problems.
 
-const items = ['Pencil', 'Notebook', 'yo-yo', 'Gum'];
+const items = ['Pencil', 'Notebook', 'yo-yo', 'Gum', 'Pencil', 'Apple', 'Apple'];
 
 /* 
 
@@ -38,32 +38,114 @@ const items = ['Pencil', 'Notebook', 'yo-yo', 'Gum'];
   console.log(test2); // "this Pencil is worth a million dollars!"
 */
 
-
+// getLength passes the length of the array into the callback.
 function getLength(arr, cb) {
-  // getLength passes the length of the array into the callback.
+  return cb(arr.length);
+}
+// My test of getLength
+// TEST 3 (inlined callback)
+test3 = getLength(items, myLength => `This array is ${myLength} items long`);
+console.log(test3);
+
+// TEST 4 (declaring callback beforehand)
+function reallyLong(length) {
+  return `This array is ${length} items long`;
 }
 
+const test4 = getLength(items, reallyLong);
+console.log(test4);
+
+
+// last passes the last item of the array into the callback.
 function last(arr, cb) {
-  // last passes the last item of the array into the callback.
+  return cb(arr[arr.length-1]);
+}
+// My test of last
+// TEST 5 (inlined callback):
+const test5 = last(items, item => `I love my ${item}!`);
+console.log(test5); // "I love my Gum!"
+
+// TEST 6 (declaring callback before hand):
+function logExorbitantPrice(article) {
+  return `this ${article} is worth a million dollars!`;
 }
 
+const test6 = last(items, logExorbitantPrice);
+console.log(test6); // "this Gum is worth a million dollars!"
+
+// sumNums adds two numbers (x, y) and passes the result to the callback.
 function sumNums(x, y, cb) {
-  // sumNums adds two numbers (x, y) and passes the result to the callback.
+  return cb(x + y);
+}
+// My test of sumNums
+// TEST 7 (inlined callback):
+const test7 = sumNums(3, 4, apples => `We have ${apples} Apples!`);
+console.log(test7);
+
+// TEST 8 (declaring callback before hand):
+function countApples(number) {
+  return `I counted ${number} apples.`;
 }
 
+const test8 = sumNums(2, 9, countApples);
+console.log(test8);
+
+
+// multiplyNums multiplies two numbers and passes the result to the callback.
 function multiplyNums(x, y, cb) {
-  // multiplyNums multiplies two numbers and passes the result to the callback.
+  return cb(x * y);
 }
 
-function contains(item, list, cb) {
-  // contains checks if an item is present inside of the given array/list.
-  // Pass true to the callback if it is, otherwise pass false.
+// My test of multiplyNums
+// TEST 9 (inlined callback):
+const test9 = multiplyNums(3, 4, boxes => `We have ${boxes} Boxes!`);
+console.log(test9);
+
+// TEST 10 (declaring callback before hand):
+function boxesInSquare(number) {
+  return `I there are ${number} boxes in the square.`;
 }
+
+const test10 = multiplyNums(2, 9, boxesInSquare);
+console.log(test10);
+
+
+// contains checks if an item is present inside of the given array/list.
+// Pass true to the callback if it is, otherwise pass false.
+function contains(item, list, cb) {
+  return cb(list.includes(item));
+}
+
+// My test of contains
+// TEST 11 (inlined callback):
+const test11 = contains("Pencil", items, foundIt => {
+  console.log(foundIt);
+});
+
+const test12 = contains("Apple", items, foundIt => {
+  console.log(foundIt);
+});
 
 /* STRETCH PROBLEM */
+// removeDuplicates removes all duplicate values from the given array.
+// Pass the duplicate free array to the callback function.
+// Do not mutate the original array.
 
 function removeDuplicates(array, cb) {
-  // removeDuplicates removes all duplicate values from the given array.
-  // Pass the duplicate free array to the callback function.
-  // Do not mutate the original array.
+  newArray = [];
+  array.forEach(function(element) {
+    if (newArray.includes(element)) {
+    } else {
+      newArray.push(element);
+    };
+    console.log(newArray);
+  });
+  return cb(newArray);
 }
+
+const example = removeDuplicates(items, thisIs => console.log(thisIs));
+// duplicates are removed!
+
+
+// contains checks if an item is present inside of the given array/list.
+// Pass true to the callback if it is, otherwise pass false.
